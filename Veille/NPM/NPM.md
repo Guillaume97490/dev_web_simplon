@@ -1,13 +1,4 @@
 # NPM
-
-Node Pakage Manager 
-
-Gestionnaire de paquets officiel de Node.js 
-
-Année de sorti de la première version : 2010 
-Actuellement à la version 6 sorti le 3 septembre 2019 
-
-
 Node Pakage Manager 
 
 Gestionnaire de paquets officiel de Node.js 
