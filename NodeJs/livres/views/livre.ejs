@@ -1,0 +1,21 @@
+<h1>Liste des livre</h1>
+
+<table>
+    <thead>
+        <tr>
+            <td>Titre</td>
+            <td>Date</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (data) { %>
+        <%for (var i = 0; i < data.length; i++) { %>
+        <tr>
+            <td><%= data[i].titre %></td>
+            <td><%= moment(data[i].date).format('DD MMMM YYYY') %></td>
+        </tr>
+        <% }%>
+        <% }%>
+    </tbody>
+</table>
+<a href="http://localhost:3000/livre/add">Ajouter un nouveau livre</a>
