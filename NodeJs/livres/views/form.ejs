@@ -1,9 +1,10 @@
-<form action="/livre/add" method="post">
+<form <% if(locals.data){ %>action="/livre/update/<%= data._id %>"<% } else{ %>action="/livre/add"<% } %> method="post">
+
     <label for="title">Titre</label>
-    <input type="text" name="title" id="title">
+    <input type="text" name="title" <% if (locals.data) { %> value="<%= data.titre %>" <% }%> id="title">
 
     <label for="date">Date</label>
-    <input type="date" name="date" id="date">
+    <input type="date" name="date" <% if (locals.data) { %> value="<%= moment(data.date).format('YYYY-MM-DD') %>" <% }%> id="date">
 
     <button type="submit">Enregistrer</button>
 </form>

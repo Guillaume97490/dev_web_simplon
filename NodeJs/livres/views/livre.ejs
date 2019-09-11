@@ -5,6 +5,7 @@
         <tr>
             <td>Titre</td>
             <td>Date</td>
+            <td>Modifier</td>
         </tr>
     </thead>
     <tbody>
@@ -13,6 +14,12 @@
         <tr>
             <td><%= data[i].titre %></td>
             <td><%= moment(data[i].date).format('DD MMMM YYYY') %></td>
+            <td>
+                <a href="http://localhost:3000/livre/update/<%= (data[i]._id) %>">Modifier</a>
+            </td>
+            <td>
+                <a href="http://localhost:3000/livre/delete/<%= (data[i]._id) %>">Supprimer</a>
+            </td>
         </tr>
         <% }%>
         <% }%>
