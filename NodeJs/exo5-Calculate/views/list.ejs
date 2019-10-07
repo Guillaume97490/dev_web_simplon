@@ -8,39 +8,71 @@
 
     
 </head>
+<style>
+    .row-disabled{
+        background: gray;
+        color: white;
+    }
+    .table td, .table th {
+        vertical-align: middle !important;
+    }
+    .fs20{
+        font-size: 20px;
+    }
+    .disabled-checkbox{
+        width: 20px;
+        height: 20px;
+    }
+    .mgt-auto{
+        margin-top: auto;
+    }
+    .mgy-40{
+        margin: 40px 0
+    }
+</style>
 <body>
-    <h1>Liste des calculs</h1>
+    <h1 class="text-center">Liste des calculs</h1>
 
     <form <% if(locals.dataEdit){ %>action="/calculate/update/<%= dataEdit._id %>"<% } else{ %>action="/calculate/save"<% } %>
     method="post">
 
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <label for="number1">Nombre 1</label>
+                    <input required class="form-control" <% if(locals.dataEdit){ %> value="<%= dataEdit.number1 %>" <% } %> type="number" name="number1" id="number1">
+                </div>
+                <div class="col-4">
+                    <label for="number2">Nombre 2</label>
+                    <input required class="form-control" <% if(locals.dataEdit){ %> value="<%= dataEdit.number2 %>" <% } %> type="number" name="number2" id="number2">
+                </div>
+                <div class="col-2 mgt-auto">
+                    <label for="operator">Opérateur</label>
+                    <select required class="form-control" name="operator" id="operator">
+                        <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '+'){ %>  <% } %>  <% } %> value="0">+</option>
+                        <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '-'){ %>  <% } %>  <% } %> value="1">-</option>
+                        <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '*'){ %>  <% } %>  <% } %> value="2">*</option>
+                        <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '/'){ %>  <% } %>  <% } %> value="3">/</option>
+                    </select>
+                </div>
+                <div class="col-2 mgt-auto">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </div>
+        </div>
 
-        <label for="number1">Nombre 1</label>
-        <input <% if(locals.dataEdit){ %> value="<%= dataEdit.number1 %>" <% } %> type="number" name="number1" id="number1">
-        <label for="number2">Nombre 2</label>
-        <input <% if(locals.dataEdit){ %> value="<%= dataEdit.number2 %>" <% } %> type="number" name="number2" id="number2">
-        <select name="operator" id="operator">
-            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '+'){ %>  <% } %>  <% } %> value="0">+</option>
-            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '-'){ %>  <% } %>  <% } %> value="1">-</option>
-            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '*'){ %>  <% } %>  <% } %> value="2">*</option>
-            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '/'){ %>  <% } %>  <% } %> value="3">/</option>
-        </select>
+
+        <% if(locals.errorMsg) { %>
+            <h3 class="text-center mgy-40 text-danger"><%= locals.errorMsg %></h3>
+        <% } %>
+        
+
 
         <% if(locals.dataEdit) { %>
             <input value="<%= dataEdit._id %>" type="hidden" name="id">
-        <% } %>
-
-       <button type="submit" class="btn btn-primary">Valider</button>
+        <% } %> 
 
     </form>
-
-    
-
-    
-    
-    
-
-    
         <table class="table">
            <thead>
                <tr>
@@ -50,27 +82,43 @@
                    <th class="text-center">Résultat</th>
                    <th class="text-center">Désactiver</th>
                    <th class="text-center">Calculer</th>
-                   <th class="text-center">Modifier</th>
+                   <th class="text-center">Actions</th>
                </tr>
            </thead>
            <tbody>
                 <% if (data) { %>
                     <%for (var i = 0; i < data.length; i++) { %>
                        
-                        <tr>
-                            <td class="text-center" scope="row"><%= data[i].number1 %></td>
-                            <td class="text-center" scope="row"><%= data[i].operator %></td>
-                            <td class="text-center" scope="row"><%= data[i].number2 %></td>
-                            <td class="text-center" scope="row"><%= data[i].result %></td>
-                            <td class="text-center">
-                                <% if(data[i].disabled == 0){ %>  
-                                        <a class="btn btn-danger  <% if(data[i].disabled == 1){ %> disabled <% } %> " href="/calculate/disable/<%= (data[i]._id) %>">Desactiver
+                        <tr class="<% if( data[i].disabled == 1){ %> row-disabled <% } %> ">
+                            <td class="text-center fs20" scope="row"><%= data[i].number1 %></td>
+                            <td class="text-center fs20" scope="row"><%= data[i].operator %></td>
+                            <td class="text-center fs20" scope="row"><%= data[i].number2 %></td>
+                            <td class="text-center fs20" scope="row">
+                                <% if( data[i].result){ %> 
+                                    <%= data[i].result %>
                                 <% } else{ %>
-                                        <input checked disabled type="checkbox" name="" id="">
+                                -
+                                
                                 <% } %>
                             </td>
-                            <td class="text-center" scope="row"><a class="btn btn-success" href="/calculate/calcul/<%= (data[i]._id) %>">Calculer</a></td>
-                            <td class="text-center" scope="row"><a class="btn btn-warning" href="/calculate/update/<%= (data[i]._id) %>">Modifier</a></td>
+                            <td class="text-center fs20">
+                                <% if(data[i].disabled == 1){ %>  
+                                        
+                                        <input class="disabled-checkbox" checked disabled type="checkbox" name="" id="">
+                                <% } %>
+                            </td>
+                            <td class="text-center" scope="row"><a class="btn btn-success <% if(data[i].disabled == 1){ %> disabled <% } %>" href="/calculate/calcul/<%= (data[i]._id) %>">Calculer</a></td>
+                            <td class="text-center" scope="row">
+                                <div class="btn-group">
+                                    <a class="btn btn-warning <% if(data[i].disabled == 1){ %> disabled <% } %>" href="/calculate/update/<%= (data[i]._id) %>">Modifier</a>
+                                    <button type="button" class="btn btn-danger <% if(data[i].disabled == 1){ %> disabled <% } %> dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <!-- <span class="sr-only">Toggle Dropdown</span> -->
+                                    </button>
+                                    <div class="dropdown-menu <% if(data[i].disabled == 1){ %> disabled <% } %>">
+                                        <a class="dropdown-item <% if(data[i].disabled == 1){ %> disabled <% } %>" href="/calculate/disable/<%= (data[i]._id) %>">Désactiver</a>
+                                    </div>
+                                </div>
+                            </td>
                             
                         </tr>
 
