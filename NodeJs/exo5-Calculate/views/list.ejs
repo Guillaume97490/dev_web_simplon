@@ -1,0 +1,99 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Liste des calculs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    
+</head>
+<body>
+    <h1>Liste des calculs</h1>
+
+    <form <% if(locals.dataEdit){ %>action="/calculate/update/<%= dataEdit._id %>"<% } else{ %>action="/calculate/save"<% } %>
+    method="post">
+
+
+        <label for="number1">Nombre 1</label>
+        <input <% if(locals.dataEdit){ %> value="<%= dataEdit.number1 %>" <% } %> type="number" name="number1" id="number1">
+        <label for="number2">Nombre 2</label>
+        <input <% if(locals.dataEdit){ %> value="<%= dataEdit.number2 %>" <% } %> type="number" name="number2" id="number2">
+        <select name="operator" id="operator">
+            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '+'){ %>  <% } %>  <% } %> value="0">+</option>
+            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '-'){ %>  <% } %>  <% } %> value="1">-</option>
+            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '*'){ %>  <% } %>  <% } %> value="2">*</option>
+            <option <% if(locals.dataEdit){ %> <% if(dataEdit.operator == '/'){ %>  <% } %>  <% } %> value="3">/</option>
+        </select>
+
+        <% if(locals.dataEdit) { %>
+            <input value="<%= dataEdit._id %>" type="hidden" name="id">
+        <% } %>
+
+       <button type="submit" class="btn btn-primary">Valider</button>
+
+    </form>
+
+    
+
+    
+    
+    
+
+    
+        <table class="table">
+           <thead>
+               <tr>
+                   <th class="text-center">Nombre 1</th>
+                   <th class="text-center">Opérateur</th>
+                   <th class="text-center">Nombre 2</th>
+                   <th class="text-center">Résultat</th>
+                   <th class="text-center">Désactiver</th>
+                   <th class="text-center">Calculer</th>
+                   <th class="text-center">Modifier</th>
+               </tr>
+           </thead>
+           <tbody>
+                <% if (data) { %>
+                    <%for (var i = 0; i < data.length; i++) { %>
+                       
+                        <tr>
+                            <td class="text-center" scope="row"><%= data[i].number1 %></td>
+                            <td class="text-center" scope="row"><%= data[i].operator %></td>
+                            <td class="text-center" scope="row"><%= data[i].number2 %></td>
+                            <td class="text-center" scope="row"><%= data[i].result %></td>
+                            <td class="text-center">
+                                <% if(data[i].disabled == 0){ %>  
+                                        <a class="btn btn-danger  <% if(data[i].disabled == 1){ %> disabled <% } %> " href="/calculate/disable/<%= (data[i]._id) %>">Desactiver
+                                <% } else{ %>
+                                        <input checked disabled type="checkbox" name="" id="">
+                                <% } %>
+                            </td>
+                            <td class="text-center" scope="row"><a class="btn btn-success" href="/calculate/calcul/<%= (data[i]._id) %>">Calculer</a></td>
+                            <td class="text-center" scope="row"><a class="btn btn-warning" href="/calculate/update/<%= (data[i]._id) %>">Modifier</a></td>
+                            
+                        </tr>
+
+                       
+                        
+                    <% }%>
+                <% }%> 
+
+
+               
+           </tbody>
+       </table> 
+    
+    
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    
+</body>
+</html>
+
+
