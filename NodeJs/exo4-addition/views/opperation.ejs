@@ -1,0 +1,26 @@
+<form action="/opperation/resultat/" method="post">
+    <div>
+        <label for="number1">Nombre 1</label>
+        <input type="number" name="number1" id="number1">
+    </div>
+    <div>
+        <label for="number2">Nombre 2</label>
+        <input type="number" name="number2" id="number2">
+    </div>
+    <br>
+    <div>
+        <button type="submit" name="action" value="+">+</button>
+        <button type="submit" name="action" value="-">-</button>
+        <button type="submit" name="action" value="*">x</button>
+        <button type="submit" name="action" value="/">/</button>
+    </div>
+    <br>
+    resultat : 
+    <% if(locals.result) { %>
+    <%= result %> 
+    <br>
+    <a href="http://localhost:3000/opperation/">Reset</a>
+    <% } else{ %>
+    0
+    <% } %>
+</form>
