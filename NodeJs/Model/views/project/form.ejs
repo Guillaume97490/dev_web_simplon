@@ -1,0 +1,55 @@
+
+
+<% include ../partials/head.ejs %>
+<head>
+    <title>Projet Node.js</title>
+</head>
+<form <% if(locals.dataEdit){ %>action="/project/update/<%= dataEdit._id %>"<% } else{ %>action="/project/save"<% } %>
+    method="post">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <label for="number1">Nombre 1</label>
+                <input required class="form-control" <% if(locals.dataEdit){ %> value="<%= dataEdit.number1 %>" <% } %> type="number" name="number1" id="number1">
+            </div>
+            <div class="col-4">
+                <label for="number2">Nombre 2</label>
+                <input required class="form-control" <% if(locals.dataEdit){ %> value="<%= dataEdit.number2 %>" <% } %> type="number" name="number2" id="number2">
+            </div>
+            <div class="col-2 mgt-auto">
+                <label for="text">Texte</label>
+                <select required class="form-control" name="text" id="text">
+                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.text == 'lundi'){ %> selected <% } %>  <% } %> value="lundi">lundi</option>
+                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.text == 'mardi'){ %> selected <% } %>  <% } %> value="mardi">mardi</option>
+                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.text == 'mercredi'){ %> selected <% } %>  <% } %> value="mercredi">mercredi</option>
+                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.text == 'jeudi'){ %> selected <% } %>  <% } %> value="jeudi">jeudi</option>
+                </select>
+            </div>
+            <div class="col-2 mgt-auto">
+                <button type="submit" class="btn btn-primary">
+                    <% if(locals.dataEdit){ %>
+                        Modifier
+                    <% } else{ %>
+                        Ajouter
+                    <% } %>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <% if(locals.errorMsg) { %>
+        <h3 class="text-center mgy-40 text-danger"><%= locals.errorMsg %></h3>
+    <% } %>
+    
+
+
+    <% if(locals.dataEdit) { %>
+        <input value="<%= dataEdit._id %>" type="hidden" name="id">
+    <% } %> 
+
+</form>
+<% include ../partials/footer.ejs %>
+
+   
