@@ -1,9 +1,5 @@
-
-
 <% include ../partials/head.ejs %>
-<head>
-    <title>Projet Node.js</title>
-</head>
+
 <form <% if(locals.dataEdit){ %>action="/project/update/<%= dataEdit._id %>"<% } else{ %>action="/project/save"<% } %>
     method="post">
 

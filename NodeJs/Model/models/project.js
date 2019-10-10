@@ -17,7 +17,7 @@ let projectSchema = mongoose.Schema({
     number1: Number,
     number2: Number,
     text: String,
-    enabled: {type: Number, default: 1}
+    enabled: {type: Boolean, default: true}
 });
 
 let Project = mongoose.model('Project', projectSchema);

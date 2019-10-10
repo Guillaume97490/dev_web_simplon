@@ -1,59 +1,66 @@
 
-<head>
-    <title>Projet Node.js</title>
-</head>
- <% include ../partials/head.ejs %>
-        <h1 class="text-center">Projet MVC - Node.js & Mongoose</h1>
-    
-        <div class="d-flex justify-content-center">
-            <a class="btn btn-success" href="/project/add/">Ajouter</a>
-        </div>
-    
-        <% if (locals.data) { %>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nombre 1</th>
-                        <th class="text-center">Nombre 2</th>
-                        <th class="text-center">Jour</th>
-                        <th class="text-center">Activé</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%for (var i = 0; i < data.length; i++) { %>
-                        <tr class="<% if( data[i].disabled == 1){ %> row-disabled <% } %> ">
-                            <td class="text-center fs20" scope="row"><%= data[i].number1 %></td>
-                            <td class="text-center fs20" scope="row"><%= data[i].number2 %></td>
-                            <td class="text-center fs20" scope="row"><%= data[i].text %></td>
-                            <td class="text-center fs20">
-                                <% if(data[i].enabled == 1){ %>  
-                                    <input class="disabled-checkbox" checked disabled type="checkbox" name="" id="">
-                                <% } else{ %>
-                                    <input class="disabled-checkbox" disabled type="checkbox" name="" id="">
-                                <% } %>
-                            </td>
-                            <td class="text-center" scope="row">
-                                <div class="btn-group">
-    
-                                    <a class="btn btn-primary" href="/project/show/<%= (data[i]._id) %>">Voir</a>
-                                    <a class="btn btn-warning <% if(data[i].enabled == 0){ %> disabled <% } %>" href="/project/edit/<%= (data[i]._id) %>">Modifier</a>
-                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <!-- <span class="sr-only">Toggle Dropdown</span> -->
-                                    </button>
-                                    <div class="dropdown-menu <% if(data[i].enabled == 0){ %> disabled <% } %>">
-                                        <a class="dropdown-item" href="/project/disable/<%= (data[i]._id) %>"><% if(data[i].enabled == 0){ %> Activer <% } else{ %> Désactiver <% } %></a>
-                                        <a class="dropdown-item bg-danger text-white <% if(data[i].enabled == 0){ %> disabled <% } %>" href="/project/delete/<%= (data[i]._id) %>">Supprimer</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    <% }%>
-                    
-                </tbody>
-            </table>
-    
-        <% }%> 
 
-        <% include ../partials/footer.ejs %>
+<!--<head>
+    <title>Projet Node.js</title>
+</head>-->
+ <% include ../partials/head.ejs %>
+<h1 class="text-center">Projet MVC - Node.js & Mongoose</h1>
+
+<div class="d-flex justify-content-center">
+    <a class="btn btn-success" href="/project/add/">Ajouter</a>
+</div>
+
+<% if (locals.errorMsg) { %>
+<div>
+    <h2 class="text-center text-danger"><%= locals.errorMsg %></h2>
+</div>
+<% }%> 
+
+<% if (locals.data) { %>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Nombre 1</th>
+                <th class="text-center">Nombre 2</th>
+                <th class="text-center">Jour</th>
+                <th class="text-center">Activé</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%for (var i = 0; i < data.length; i++) { %>
+                <tr class="<% if( data[i].enabled == 0){ %> row-disabled <% } %> ">
+                    <td class="text-center fs20" scope="row"><%= data[i].number1 %></td>
+                    <td class="text-center fs20" scope="row"><%= data[i].number2 %></td>
+                    <td class="text-center fs20" scope="row"><%= data[i].text %></td>
+                    <td class="text-center fs20">
+                        <% if(data[i].enabled == 1){ %>  
+                            <input class="disabled-checkbox" checked disabled type="checkbox" name="" id="">
+                        <% } else{ %>
+                            <input class="disabled-checkbox" disabled type="checkbox" name="" id="">
+                        <% } %>
+                    </td>
+                    <td class="text-center" scope="row">
+                        <div class="btn-group">
+
+                            <a class="btn btn-primary" href="/project/show/<%= (data[i]._id) %>">Voir</a>
+                            <a class="btn btn-warning <% if(data[i].enabled == 0){ %> disabled <% } %>" href="/project/edit/<%= (data[i]._id) %>">Modifier</a>
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!-- <span class="sr-only">Toggle Dropdown</span> -->
+                            </button>
+                            <div class="dropdown-menu <% if(data[i].enabled == 0){ %> disabled <% } %>">
+                                <a class="dropdown-item" href="/project/disable/<%= (data[i]._id) %>"><% if(data[i].enabled == 0){ %> Activer <% } else{ %> Désactiver <% } %></a>
+                                <a class="dropdown-item bg-danger text-white <% if(data[i].enabled == 0){ %> disabled <% } %>" href="/project/delete/<%= (data[i]._id) %>">Supprimer</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <% }%>
+            
+        </tbody>
+    </table>
+
+<% }%> 
+
+<% include ../partials/footer.ejs %>
         
