@@ -1,0 +1,18 @@
+{
+  "name": "projet-model-node-js-sequelize",
+  "version": "1.0.0",
+  "description": "Projet vide pour débuter un nouveau projet node js avec express et sequelize-mysql",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guillaume",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.19.5"
+  }
+}

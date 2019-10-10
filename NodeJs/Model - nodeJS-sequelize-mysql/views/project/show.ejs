@@ -1,0 +1,19 @@
+<% include ../partials/head.ejs %> 
+<head>
+    <title>Projet Node.js</title>
+</head>
+<div class="container">
+        <h1>Detail</h1>
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Title</h4>
+                <p class="card-text">Nombre 1 : <%= data.number1 %></p>
+                <p class="card-text">Nombre 2 : <%= data.number2 %></p>
+                <p class="card-text">Jour : <%= data.text %></p>
+            </div>
+        </div>
+    </div>
+    <a href="/project">Retour</a>
+</div>
+<% include ../partials/footer.ejs %>
