@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:user@localhost:3306/project_db');
+const sequelize = new Sequelize('mysql://root:pass@localhost:3306/project_db');
 
 
 
