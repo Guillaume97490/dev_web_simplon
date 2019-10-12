@@ -7,7 +7,7 @@ router.get('/', calculateController.list);
 // // router.get('/add', calculateController.add);
 router.post('/save', calculateController.save);
 router.get('/calcul/:id', calculateController.result);
-router.get('/update/:id', calculateController.edit);
+// router.get('/update/:id', calculateController.edit);
 router.post('/update/:id', calculateController.update);
 router.get('/disable/:id', calculateController.disable);
 // // router.get('/delete/:id', calculateController.delete);

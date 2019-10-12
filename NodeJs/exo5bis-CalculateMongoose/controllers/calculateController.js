@@ -126,35 +126,35 @@ Calcul.findById(req.params.id, function(err, item) {
 });
 }
 
-controller.edit = (req, res) => {
-  Calcul.findById(req.params.id, function(err, item) {
-    // console.log(item)
-    if (item.disabled == '1'){
-      Calcul.find({}, function(err, items) {
-        if (err) throw err;
-        // object of all the calculs
-        // console.log(items);
-        res.render('list.ejs', {
-          data: items,
-          errorMsg: 'Cette opération a été désactiver'
-          });
-      });
-    }
-    if (item){
-      Calcul.find({}, function(err, items) {
-        if (err) throw err;
-        // object of all the calculs
-        // console.log(items);
-        res.render('list.ejs', {
-          data: items,
-          dataEdit: item
-          });
-      });
+// controller.edit = (req, res) => {
+//   Calcul.findById(req.params.id, function(err, item) {
+//     // console.log(item)
+//     if (item.disabled == '1'){
+//       Calcul.find({}, function(err, items) {
+//         if (err) throw err;
+//         // object of all the calculs
+//         // console.log(items);
+//         res.render('list.ejs', {
+//           data: items,
+//           errorMsg: 'Cette opération a été désactiver'
+//           });
+//       });
+//     }
+//     if (item){
+//       Calcul.find({}, function(err, items) {
+//         if (err) throw err;
+//         // object of all the calculs
+//         // console.log(items);
+//         res.render('list.ejs', {
+//           data: items,
+//           dataEdit: item
+//           });
+//       });
       
-    };
-  })
+//     };
+//   })
 
-}
+// }
 controller.update = (req, res) => {
   var number1 = Number(req.body.number1);
   var number2 = Number(req.body.number2);
