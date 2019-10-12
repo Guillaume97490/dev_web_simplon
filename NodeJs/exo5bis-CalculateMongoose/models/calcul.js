@@ -1,15 +1,4 @@
-const mongoose = require('mongoose');
-
-//with using the promise
-mongoose.connect('mongodb://localhost:27017/calculate_db2',{
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  //connection established successfully
-  console.log('connexion...')
-}).catch();{
-  //catch any error during the initial connection
-}
+const mongoose = require('../config/database');
 
 let calculSchema = mongoose.Schema({
   number1: Number,
