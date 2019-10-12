@@ -1,9 +1,7 @@
 var Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:pass@localhost:3306/project_db');
+var db = require('../config/database');
 
-
-
-const Project = sequelize.define('project', {
+const Project = db.define('project', {
     // attributes
     id:{
         type:Sequelize.INTEGER,
@@ -28,7 +26,9 @@ const Project = sequelize.define('project', {
     type:Sequelize.BOOLEAN,
     defaultValue: true
     }
- } ,{sequelize, tableName:"project",timestamps: false});
+ } ,{db, tableName:"project",timestamps: false});
 
- var exports = module.exports = {};
- exports.Project = Project;
+//  var exports = module.exports = {};
+//  exports.Project = Project;
+
+ module.exports.Project = Project;

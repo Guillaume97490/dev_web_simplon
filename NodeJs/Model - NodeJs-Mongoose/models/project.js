@@ -1,17 +1,4 @@
-const mongoose = require('mongoose');
-
-var ObjectId = require('mongodb').ObjectID;
-//with using the promise
-mongoose.connect('mongodb://localhost:27017/project_db',{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false 
-}).then(() => {
-  //connection established successfully
-  console.log('connection established successfully')
-}).catch();{
-  //catch any error during the initial connection
-}
+const mongoose = require('../config/database');
 
 let projectSchema = mongoose.Schema({
     number1: Number,
@@ -21,6 +8,5 @@ let projectSchema = mongoose.Schema({
 });
 
 let Project = mongoose.model('Project', projectSchema);
-
 
 module.exports = Project;
