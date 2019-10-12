@@ -1,0 +1,20 @@
+.row-disabled{
+    background: gray;
+    color: white;
+}
+.table td, .table th {
+    vertical-align: middle !important;
+}
+.fs20{
+    font-size: 20px;
+}
+.disabled-checkbox{
+    width: 20px;
+    height: 20px;
+}
+.mgt-auto{
+    margin-top: auto;
+}
+.mgy-40{
+    margin: 40px 0
+}
