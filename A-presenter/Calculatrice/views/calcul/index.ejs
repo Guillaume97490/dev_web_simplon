@@ -1,4 +1,3 @@
-
 <% include ../templates/head.ejs %>
 <h1 class="text-center">Calculatrice (v2)</h1>
 
@@ -15,7 +14,7 @@
 <% }%>
 
 <% if (locals.data) { %>
-<table class="table">
+<!-- <table class="table">
     <thead>
         <tr>
             <th class="text-center">Nombre 1</th>
@@ -41,16 +40,17 @@
                 <input class="disabled-checkbox" disabled type="checkbox" name="" id="">
                 <% } %>
             </td>
-            <td class="text-center fs20" scope="row"><%= data[i].result %></td>
+            <td data-result="<%= data[i].result %>" class="text-center fs20" scope="row"><%= data[i].result %></td>
             <td class="text-center" scope="row">
                 <div class="btn-group">
 
-                    <a class="btn btn-primary" href="/calcul/show/<%= (data[i]._id) %>">Voir</a>
-                    <a class="btn btn-warning <% if(data[i].enabled == 0){ %> disabled <% } %>"
-                        href="/calcul/edit/<%= (data[i]._id) %>">Modifier</a>
+                    <button onclick="calculFunction('<%= data[i]._id %>'); return false" type="button"
+                        class="btn btn-primary">Calculer</button>
+                    <button onclick="editFunction('<%= data[i]._id %>')" type="button"
+                        class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>">Modifier</button>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <!-- <span class="sr-only">Toggle Dropdown</span> -->
+                        
                     </button>
                     <div class="dropdown-menu <% if(data[i].enabled == 0){ %> disabled <% } %>">
                         <a class="dropdown-item"
@@ -65,7 +65,66 @@
         <% }%>
 
     </tbody>
-</table>
+</table> -->
+
+<div class="container-fluid">
+    <%for (var i = 0; i < data.length; i++) { %>
+    <div data-id="<%= data[i]._id %>" data-enabled="<%= (data[i].enabled) %>">
+
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <p class="d-inline" data-number1="<%= data[i].number1 %>" class="fs20"><%= data[i].number1 %>
+                        </p>
+                        <p class="d-inline" data-operator="<%= data[i].operator %>" class="fs20"><%= data[i].operator %>
+                        </p>
+                        <p class="d-inline" data-number2="<%= data[i].number2 %>" class="fs20"><%= data[i].number2 %>
+                        </p>
+                        <p class="d-inline" class="fs20">=</p>
+                        <p class="d-inline" data-result="<%= data[i].result %>" class="fs20"><%= data[i].result %></p>
+
+
+
+
+                        <div class="d-md-inline float-md-right">
+                            <button onclick="calculFunction('<%= data[i]._id %>'); return false" type="button"
+                                    class="btn btn-primary">Calculer</button>
+                                <div class="btn-group">
+                                    <button onclick="editFunction('<%= data[i]._id %>')" type="button"
+                                        class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>">Modifier</button>
+                                    <!-- <a class="btn btn-warning <% if(data[i].enabled == 0){ %> disabled <% } %>"
+                                                href="#" onclick="editFunction('<%= data[i]._id %>')">Modifier</a> -->
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <!-- <span class="sr-only">Toggle Dropdown</span> -->
+                                    </button>
+                                    <div class="dropdown-menu <% if(data[i].enabled == 0){ %> disabled <% } %>">
+                                        <a class="dropdown-item"
+                                            href="/calcul/disable/<%= (data[i]._id) %>"><% if(data[i].enabled == 0){ %> Activer
+                                            <% } else{ %> Désactiver <% } %></a>
+                                        <a class="dropdown-item bg-danger text-white <% if(data[i].enabled == 0){ %> disabled <% } %>"
+                                            href="/calcul/delete/<%= (data[i]._id) %>">Supprimer</a>
+                                    </div>
+                                </div>
+                        </div>
+                    </h3>
+                    <p class="card-text d-inline">
+
+
+
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <% }%>
+</div>
 
 <% }%>
 

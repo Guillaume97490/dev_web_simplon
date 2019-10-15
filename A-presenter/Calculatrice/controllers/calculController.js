@@ -15,18 +15,76 @@ controller.index = (req, res) => {
     });
 };
 
-controller.show = (req, res) => {
+// controller.show = (req, res) => {
+//     Calcul.findById(req.params.id, function (err, item) {
+//         if (err) throw err;
+//         if (item) {
+
+//             // console.log(item);
+//             res.render('./calcul/show.ejs', {
+//                 data: item, // object of one item
+//                 title: item._id
+//             });
+//         };
+//     })
+// }
+
+
+
+controller.calcul = (req, res) => {
+    console.log('test');
+    // get one Document
     Calcul.findById(req.params.id, function (err, item) {
         if (err) throw err;
-        if (item) {
+        // object of the calcul
+        // console.log(item);
+        number1 = Number(item.number1);
+        number2 = Number(item.number2);
+        var operator = item.operator;
 
-            // console.log(item);
-            res.render('./calcul/show.ejs', {
-                data: item, // object of one item
-                title: item._id
+        if (item.disabled == '1') {
+            Calcul.find({}, function (err, items) {
+                if (err) throw err;
+                // object of all the calculs
+                // console.log(items);
+                // res.render('list.ejs', {
+                //     data: items,
+                //     errorMsg: 'Cette opération a été désactiver'
+                // });
             });
-        };
-    })
+        }
+        switch (operator) {
+            case '+':
+                result = number1 + number2;
+                break;
+
+            case '-':
+                result = number1 - number2;
+                break;
+
+            case '*':
+                result = number1 * number2;
+                break;
+
+            case '/':
+                result = number1 / number2;
+                break;
+
+            default:
+                // return res.redirect("/calcul");
+        }
+        // find the calcul with id
+        // update result
+        Calcul.findByIdAndUpdate(req.params.id, {
+                result: result
+            },
+            function (err, calcul) {
+                if (err) throw err;
+                // res.redirect("/calcul");
+            });
+
+
+    });
 }
 
 controller.add = (req, res) => {
@@ -71,7 +129,7 @@ controller.save = (req, res) => {
         res.redirect("/calcul"); // redirect to index
     });
 };
-controller.save = (req, res) => {
+controller.calcul = (req, res) => {
 
     // get one Document
     Calcul.findById(req.params.id, function (err, item) {
@@ -155,6 +213,7 @@ controller.edit = (req, res) => {
 }
 
 controller.update = (req, res) => {
+
     Calcul.findById(req.params.id, function (err, item) {
         if (item.enabled === false) {
             Calcul.find({}, function (err, items) {
@@ -167,10 +226,37 @@ controller.update = (req, res) => {
                 });
             });
         } else if (req.body.id) {
+
+
+            number1 = Number(req.body.number1);
+            number2 = Number(req.body.number2);
+            op = Number(req.body.operator);
+
+            switch (op) {
+                case 0:
+                    operator = '+';
+                    break
+                case 1:
+                    operator = '-';
+                    break
+                case 2:
+                    operator = '*';
+                    break
+                case 3:
+                    operator = '/';
+                    break
+                default:
+                    return res.redirect("/calcul")
+            }
+
+
+
+
             Calcul.findByIdAndUpdate(req.params.id, { // update one item with id
-                    number1: req.body.number1,
-                    number2: req.body.number2,
-                    text: req.body.text
+                    number1: number1,
+                    number2: number2,
+                    operator: operator,
+                    result: null
                 },
                 function (err, item) {
                     if (err) throw err;

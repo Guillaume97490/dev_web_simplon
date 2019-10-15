@@ -13,6 +13,7 @@ app.use(express.static(__dirname + '/public'));
 
 // importing routes
 const calculRoutes = require('./routes/calcul');
+const technoRoutes = require('./routes/techno')
 
 
 // settings
@@ -23,6 +24,7 @@ app.set('view engine', 'ejs');
 
 // routes
 app.use('/calcul', calculRoutes);
+app.use('/technologie', technoRoutes);
 
 // starting the server
 app.listen(app.get('port'), () => {

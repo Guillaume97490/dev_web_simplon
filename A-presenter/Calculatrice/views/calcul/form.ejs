@@ -1,21 +1,21 @@
-<form class="mb-5" <% if(locals.dataEdit){ %>action="/calcul/update/<%= dataEdit._id %>"
+<form id="calcul-form" class="mb-5" <% if(locals.dataEdit){ %>action="/calcul/update/<%= dataEdit._id %>"
     <% } else{ %>action="/calcul/save" <% } %> method="post">
 
     <div class="container">
         <div class="row">
             <div class="col-4">
                 <label for="number1">Nombre 1</label>
-                <input required class="form-control" <% if(locals.dataEdit){ %> value="<%= dataEdit.number1 %>" <% } %>
-                    type="number" name="number1" id="number1">
+                <input id="number1" required class="form-control" <% if(locals.dataEdit){ %>
+                    value="<%= dataEdit.number1 %>" <% } %> type="number" name="number1" id="number1">
             </div>
             <div class="col-4">
                 <label for="number2">Nombre 2</label>
-                <input required class="form-control" <% if(locals.dataEdit){ %> value="<%= dataEdit.number2 %>" <% } %>
-                    type="number" name="number2" id="number2">
+                <input id="number2" required class="form-control" <% if(locals.dataEdit){ %>
+                    value="<%= dataEdit.number2 %>" <% } %> type="number" name="number2" id="number2">
             </div>
             <div class="col-2 mt-auto">
                 <label for="text">Opérateur</label>
-                <select required class="form-control" name="operator" id="operateur">
+                <select id="operator" required class="form-control" name="operator" id="operateur">
                     <option <% if(locals.dataEdit){ %> <% if(dataEdit.operateur == '0'){ %> selected <% } %> <% } %>
                         value="0">+</option>
                     <option <% if(locals.dataEdit){ %> <% if(dataEdit.operateur == '1'){ %> selected <% } %> <% } %>
@@ -47,6 +47,8 @@
 
     <% if(locals.dataEdit) { %>
     <input value="<%= dataEdit._id %>" type="hidden" name="id">
+    <% } else { %>
+    <input id="hidden-id" type="hidden" value="" type="hidden" name="id">
     <% } %>
 
 </form>
