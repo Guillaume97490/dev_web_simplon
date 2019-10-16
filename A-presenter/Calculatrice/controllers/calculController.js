@@ -51,6 +51,7 @@ controller.calcul = (req, res) => {
                 //     data: items,
                 //     errorMsg: 'Cette opération a été désactiver'
                 // });
+                return
             });
         }
         switch (operator) {
@@ -71,6 +72,7 @@ controller.calcul = (req, res) => {
                 break;
 
             default:
+                return
                 // return res.redirect("/calcul");
         }
         // find the calcul with id
@@ -87,12 +89,11 @@ controller.calcul = (req, res) => {
     });
 }
 
-controller.add = (req, res) => {
-    res.render('./calcul/form.ejs', {
-        title: 'Nouveau'
-    });
-
-}
+// controller.add = (req, res) => {
+//     res.render('./calcul/form.ejs', {
+//         title: 'Nouveau'
+//     });
+// }
 
 
 controller.save = (req, res) => {
@@ -185,32 +186,32 @@ controller.calcul = (req, res) => {
 
 
 
-controller.edit = (req, res) => {
-    Calcul.findById(req.params.id, function (err, item) {
-        // console.log(item.enabled)
-        if (item.enabled === false) {
-            Calcul.find({}, function (err, items) {
-                if (err) throw err;
-                // console.log(items);
-                return res.render('./calcul/index.ejs', {
-                    data: items, // object of  the all items
-                    errorMsg: 'Oups ! opération non permise',
-                    title: 'Accueil'
-                });
+// controller.edit = (req, res) => {
+//     Calcul.findById(req.params.id, function (err, item) {
+//         // console.log(item.enabled)
+//         if (item.enabled === false) {
+//             Calcul.find({}, function (err, items) {
+//                 if (err) throw err;
+//                 // console.log(items);
+//                 return res.render('./calcul/index.ejs', {
+//                     data: items, // object of  the all items
+//                     errorMsg: 'Oups ! opération non permise',
+//                     title: 'Accueil'
+//                 });
 
-            });
-        } else if (item) {
-            Calcul.find({}, function (err, items) {
-                if (err) throw err;
-                // console.log(items);
-                res.render('./calcul/form.ejs', {
-                    dataEdit: item,
-                    title: 'Edition de ' + item.id
-                });
-            });
-        };
-    })
-}
+//             });
+//         } else if (item) {
+//             Calcul.find({}, function (err, items) {
+//                 if (err) throw err;
+//                 // console.log(items);
+//                 res.render('./calcul/form.ejs', {
+//                     dataEdit: item,
+//                     title: 'Edition de ' + item.id
+//                 });
+//             });
+//         };
+//     })
+// }
 
 controller.update = (req, res) => {
 
@@ -273,7 +274,7 @@ controller.delete = (req, res) => {
         if (err) throw err;
 
         res.redirect("/calcul");
-        console.log('Item deleted successfully');
+        // console.log('Item deleted successfully');
     });
 }
 
@@ -291,7 +292,7 @@ controller.disable = (req, res) => {
                 },
                 function (err, item) {
                     if (err) throw err;
-                    res.redirect("/calcul");
+                    // res.redirect("/calcul");
                     // console.log(item);
                 });
         })

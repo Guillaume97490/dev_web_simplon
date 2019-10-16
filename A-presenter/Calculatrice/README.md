@@ -16,3 +16,5 @@ Les requetes à la base de données sont effectuées avec Mongoose.
 ## Fonctionnalités :
 - L'ajout d'une nouvelle opération (premier nombre, deuxième nombre, et opérateur) dans une liste
 - Calcul, modification, désactivation et suppression  d'une operation de la liste
+
+

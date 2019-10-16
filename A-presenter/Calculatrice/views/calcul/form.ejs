@@ -1,54 +1,28 @@
-<form id="calcul-form" class="mb-5" <% if(locals.dataEdit){ %>action="/calcul/update/<%= dataEdit._id %>"
-    <% } else{ %>action="/calcul/save" <% } %> method="post">
+<form id="calcul-form" class="mb-5" action="/calcul/save" method="post">
 
     <div class="container">
         <div class="row">
             <div class="col-4">
                 <label for="number1">Nombre 1</label>
-                <input id="number1" required class="form-control" <% if(locals.dataEdit){ %>
-                    value="<%= dataEdit.number1 %>" <% } %> type="number" name="number1" id="number1">
+                <input id="number1" required class="form-control" type="number" name="number1" id="number1">
             </div>
             <div class="col-4">
                 <label for="number2">Nombre 2</label>
-                <input id="number2" required class="form-control" <% if(locals.dataEdit){ %>
-                    value="<%= dataEdit.number2 %>" <% } %> type="number" name="number2" id="number2">
+                <input id="number2" required class="form-control" type="number" name="number2" id="number2">
             </div>
             <div class="col-2 mt-auto">
                 <label for="text">Opérateur</label>
                 <select id="operator" required class="form-control" name="operator" id="operateur">
-                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.operateur == '0'){ %> selected <% } %> <% } %>
-                        value="0">+</option>
-                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.operateur == '1'){ %> selected <% } %> <% } %>
-                        value="1">-</option>
-                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.operateur == '2'){ %> selected <% } %> <% } %>
-                        value="2">*</option>
-                    <option <% if(locals.dataEdit){ %> <% if(dataEdit.operateur == '3'){ %> selected <% } %> <% } %>
-                        value="3">/</option>
+                    <option value="0">+</option>
+                    <option value="1">-</option>
+                    <option value="2">*</option>
+                    <option value="3">/</option>
                 </select>
             </div>
             <div class="col-2 mt-auto">
-                <button type="submit" class="btn btn-primary">
-                    <% if(locals.dataEdit){ %>
-                    Modifier
-                    <% } else{ %>
-                    Ajouter
-                    <% } %>
-                </button>
+                <button data-btn-submit type="submit" class="btn btn-success">Ajouter</button>
             </div>
         </div>
     </div>
-
-
-    <% if(locals.errorMsg) { %>
-    <h3 class="text-center mgy-40 text-danger"><%= locals.errorMsg %></h3>
-    <% } %>
-
-
-
-    <% if(locals.dataEdit) { %>
-    <input value="<%= dataEdit._id %>" type="hidden" name="id">
-    <% } else { %>
     <input id="hidden-id" type="hidden" value="" type="hidden" name="id">
-    <% } %>
-
 </form>

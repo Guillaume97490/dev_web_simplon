@@ -5,8 +5,16 @@ body {
 
 #page-content {
   flex: 1 0 auto;
+  background: #e6e6e6;
 }
 
 #sticky-footer {
   flex-shrink: none;
 }
+.rounded-50{
+  border-radius: 0.50rem !important;
+}
+div[data-enabled = "false"] .card{
+  background: #adadad !important;
+}
+
