@@ -1,6 +1,6 @@
 const mongoose = require('../config/database');
 
-let calculSchema = mongoose.Schema({
+const calculSchema = mongoose.Schema({
     number1: Number,
     number2: Number,
     operator: String,
@@ -14,6 +14,6 @@ let calculSchema = mongoose.Schema({
     }
 });
 
-let Calcul = mongoose.model('Calcul', calculSchema);
+const Calcul = mongoose.model('Calcul', calculSchema);
 
 module.exports = Calcul;

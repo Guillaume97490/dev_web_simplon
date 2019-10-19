@@ -1,7 +1,7 @@
 const controller = {};
 
 // importing model 
-let Calcul = require('../models/calcul');
+const Calcul = require('../models/calcul');
 
 controller.index = (req, res) => {
     // get all the collection
@@ -40,7 +40,7 @@ controller.calcul = (req, res) => {
         // console.log(item);
         number1 = Number(item.number1);
         number2 = Number(item.number2);
-        var operator = item.operator;
+        const operator = item.operator;
 
         if (item.disabled == '1') {
             Calcul.find({}, function (err, items) {
@@ -97,8 +97,12 @@ controller.calcul = (req, res) => {
 
 
 controller.save = (req, res) => {
-    number1 = Number(req.body.number1);
-    number2 = Number(req.body.number2);
+    const number1 = Number(req.body.number1);
+    const number2 = Number(req.body.number2);
+    let operator = undefined;
+    if (number1 && number2) {
+
+    }
     op = Number(req.body.operator);
 
     switch (op) {
@@ -115,38 +119,39 @@ controller.save = (req, res) => {
             operator = '/';
             break
         default:
-            return res.redirect("/calcul")
+            break
     }
 
-    let newCalcul = Calcul({ // create a new item
-        number1: number1,
-        number2: number2,
-        operator: operator
-    });
+    if (number1 && number2 && operator) {
+        const newCalcul = Calcul({ // création du calcul avec les valeurs
+            number1: number1,
+            number2: number2,
+            operator: operator
+        });
 
-    newCalcul.save(function (err) { // save the new item
-        if (err) throw err;
-        // console.log('Calcul created successfully.');        
-        res.redirect("/calcul"); // redirect to index
-    });
+        newCalcul.save(function (err) { // sauvegarde du calcul dans la base de données
+            if (err) throw err;
+            res.redirect("/calcul"); // redirige à l'accueil
+        });
+    }
+    else{
+        res.redirect("/calcul"); // redirige à l'accueil
+        next()
+    }
+
 };
 controller.calcul = (req, res) => {
-
     // get one Document
     Calcul.findById(req.params.id, function (err, item) {
         if (err) throw err;
-        // object of the calcul
-        // console.log(item);
-        number1 = Number(item.number1);
-        number2 = Number(item.number2);
-        var operator = item.operator;
-
+        const number1 = Number(item.number1);
+        const number2 = Number(item.number2);
+        const operator = item.operator;
+        let result = undefined;
         if (item.disabled == '1') {
             Calcul.find({}, function (err, items) {
                 if (err) throw err;
-                // object of all the calculs
-                // console.log(items);
-                res.redirect("/calcul");
+                // res.redirect("/calcul");
             });
         }
         switch (operator) {
@@ -176,15 +181,21 @@ controller.calcul = (req, res) => {
             },
             function (err, calcul) {
                 if (err) throw err;
-                res.redirect("/calcul");
+                // res.redirect("/calcul");
             });
 
+        if (result) {
+            res.json({
+                'resultat': result
+            }); // renvois un json du résultat... 
+        }
 
     });
 
 }
 
 
+// UTILISATION DES DATASETS A LA PLACE 
 
 // controller.edit = (req, res) => {
 //     Calcul.findById(req.params.id, function (err, item) {
@@ -213,6 +224,8 @@ controller.calcul = (req, res) => {
 //     })
 // }
 
+
+
 controller.update = (req, res) => {
 
     Calcul.findById(req.params.id, function (err, item) {
@@ -227,12 +240,10 @@ controller.update = (req, res) => {
                 });
             });
         } else if (req.body.id) {
-
-
-            number1 = Number(req.body.number1);
-            number2 = Number(req.body.number2);
-            op = Number(req.body.operator);
-
+            const number1 = Number(req.body.number1);
+            const number2 = Number(req.body.number2);
+            const op = Number(req.body.operator);
+            let operator = undefined;
             switch (op) {
                 case 0:
                     operator = '+';
@@ -249,8 +260,6 @@ controller.update = (req, res) => {
                 default:
                     return res.redirect("/calcul")
             }
-
-
 
 
             Calcul.findByIdAndUpdate(req.params.id, { // update one item with id
@@ -283,7 +292,7 @@ controller.disable = (req, res) => {
     if (req.params.id) {
         Calcul.findById(req.params.id, function (err, item) {
             // console.log(item)
-            var enable = '';
+            let enable = ''; // let ici parceque on ne peut pas redefinir une const :) 
             if (err) throw err;
 
             enable = !item.enabled // switch true/false
@@ -298,7 +307,6 @@ controller.disable = (req, res) => {
         })
     }
 }
-
 
 
 module.exports = controller;
