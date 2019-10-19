@@ -1,28 +1,50 @@
 <form id="calcul-form" class="mb-5" action="/calcul/save" method="post">
 
     <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <label for="number1">Nombre 1</label>
-                <input id="number1" required class="form-control" type="number" name="number1" id="number1">
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <label for="number1">Nombre 1</label>
+                        <input id="number1" required class="form-control" type="number" name="number1" id="number1">
+                    </div>
+
+
+
+
+
+                    <div class="col-md-4">
+
+                        <label for="text">Opérateur</label>
+                        <select id="operator" required class="form-control" name="operator" id="operateur">
+                            <option value="0">+</option>
+                            <option value="1">-</option>
+                            <option value="2">*</option>
+                            <option value="3">/</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <label for="number2">Nombre 2</label>
+                        <input id="number2" required class="form-control" type="number" name="number2" id="number2">
+
+                    </div>
+                </div>
             </div>
-            <div class="col-4">
-                <label for="number2">Nombre 2</label>
-                <input id="number2" required class="form-control" type="number" name="number2" id="number2">
-            </div>
-            <div class="col-2 mt-auto">
-                <label for="text">Opérateur</label>
-                <select id="operator" required class="form-control" name="operator" id="operateur">
-                    <option value="0">+</option>
-                    <option value="1">-</option>
-                    <option value="2">*</option>
-                    <option value="3">/</option>
-                </select>
-            </div>
-            <div class="col-2 mt-auto">
-                <button data-btn-submit type="submit" class="btn btn-success">Ajouter</button>
-            </div>
+        </div>
+
+
+        <div class="col-12 text-center mt-2">
+            <button data-btn-submit type="submit" class="btn btn-success">Ajouter</button>
+
         </div>
     </div>
     <input id="hidden-id" type="hidden" value="" type="hidden" name="id">
+
 </form>
