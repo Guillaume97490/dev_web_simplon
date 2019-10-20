@@ -15,6 +15,15 @@ controller.index = (req, res) => {
     });
 };
 
+controller.getAll = (req, res) => {
+    Calcul.find({}, function (err, items) {
+        if (err) throw err;
+        // console.log(items);
+        res.json({
+            'calculs': items
+        }); // renvois un json des calculs... 
+    });
+};
 // controller.show = (req, res) => {
 //     Calcul.findById(req.params.id, function (err, item) {
 //         if (err) throw err;
@@ -32,7 +41,6 @@ controller.index = (req, res) => {
 
 
 controller.calcul = (req, res) => {
-    console.log('test');
     // get one Document
     Calcul.findById(req.params.id, function (err, item) {
         if (err) throw err;
@@ -97,6 +105,7 @@ controller.calcul = (req, res) => {
 
 
 controller.save = (req, res) => {
+    // console.log(req.body)
     const number1 = Number(req.body.number1);
     const number2 = Number(req.body.number2);
     let operator = undefined;
@@ -131,13 +140,16 @@ controller.save = (req, res) => {
 
         newCalcul.save(function (err) { // sauvegarde du calcul dans la base de données
             if (err) throw err;
-            res.redirect("/calcul"); // redirige à l'accueil
+            // res.redirect("/calcul"); // redirige à l'accueil
+            res.json({success:true,text:"Your registration was successfull"}); 
         });
+        res.end({'message':'OK'}); // redirige à l'accueil
+        
     }
-    else{
-        res.redirect("/calcul"); // redirige à l'accueil
-        next()
-    }
+    // else{
+    //     res.redirect("/calcul"); // redirige à l'accueil
+    //     next()
+    // }
 
 };
 controller.calcul = (req, res) => {
