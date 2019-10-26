@@ -12,7 +12,7 @@ addOrUpdate = () => {
         return
     }
 
-    // Bascule entre ajouté un calcule et une edition d'aprés le texte du bouton 
+    // Bascule entre ajouté un calcule et une édition d'après le texte du bouton 
     postBtn.innerText == 'Modifier' ? actionForm = 'update' : actionForm = 'save'
     params = {
         number1: num1,
@@ -208,7 +208,7 @@ reloadCalculs = () => {
     
             </div>
         </div>`
-        }).join(''); // 'colle' les élements entre eux. evite les bugs d'affichages... 
+        }).join(''); // 'colle' les éléments entre eux. évite les bugs d'affichages... 
 
         const element = document.querySelector('#container-list-calcul');
         element.innerHTML = html; // met les éléments dans une div
@@ -228,7 +228,7 @@ function reqAjax(action, id = null, params = null) {
             // console.log("Réponse reçue: %s", this.responseText);
 
             try {
-                res = JSON.parse(this.responseText); // JSON.parse() transforme une chaine de caractère en objet JSON
+                res = JSON.parse(this.responseText); // JSON.parse() transforme une chaîne de caractère en objet JSON
                 resAjax(res);
             } catch (e) {
                 return
@@ -240,7 +240,7 @@ function reqAjax(action, id = null, params = null) {
         }
     };
 
-    // Vérifie l'action de la requete Ajax et définis ses paramètres selon le cas
+    // Vérifie l'action de la requête Ajax et définis ses paramètres selon le cas
     switch (action) {
         case 'getAll':
             dataReq = {
@@ -262,7 +262,7 @@ function reqAjax(action, id = null, params = null) {
             dataReq = {
                 path: `/calcul/${action}`,
                 method: 'POST',
-                params: JSON.stringify(params) // JSON.stringify() transforme un objet json en chaine de caractère
+                params: JSON.stringify(params) // JSON.stringify() transforme un objet json en chaîne de caractère
             }
             break
         case 'update':
