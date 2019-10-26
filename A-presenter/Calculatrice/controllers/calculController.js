@@ -246,6 +246,7 @@ controller.disable = (req, res) => {
                 },
                 function (err, item) {
                     if (err) throw err;
+                    res.end();
                 });
         })
     }
