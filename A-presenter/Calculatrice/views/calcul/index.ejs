@@ -17,85 +17,83 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="mb-2" data-id="<%= data[i]._id %>" data-enabled="<%= (data[i].enabled) %>">
-        
-        
+
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card border-0 rounded-50">
                             <div class="card-body">
                                 <h3 class="card-title m-0">
                                     <div class="row">
-                                        <div class="col-md-8">
-                                                <p class="d-inline" data-number1="<%= data[i].number1 %>" class="fs20">
-                                                        <%= data[i].number1 %>
-                                                    </p>
-                                                    <p class="d-inline" data-operator="<%= data[i].operator %>" class="fs20">
-                                                        <%= data[i].operator %>
-                                                    </p>
-                                                    <p class="d-inline" data-number2="<%= data[i].number2 %>" class="fs20">
-                                                        <%= data[i].number2 %>
-                                                    </p>
-                                                    <p class="d-inline" class="fs20">=</p>
-                                                    <p class="d-inline" data-result="<%= data[i].result %>" class="fs20"><%= data[i].result %>
-                                                    </p>
+
+
+                                        <div class="col-md-12">
+                                            <p class="d-inline" data-number1="<%= data[i].number1 %>" class="fs20">
+                                                <%= data[i].number1 %>
+                                            </p>
+                                            <p class="d-inline" data-operator="<%= data[i].operator %>" class="fs20">
+                                                <%= data[i].operator %>
+                                            </p>
+                                            <p class="d-inline" data-number2="<%= data[i].number2 %>" class="fs20">
+                                                <%= data[i].number2 %>
+                                            </p>
+                                            <p class="d-inline" class="fs20">=</p>
+                                            <p class="d-inline" data-result="<%= data[i].result %>" class="fs20">
+                                                <%= data[i].result %>
+                                            </p>
+                                            <hr class="bt-042" >
                                         </div>
-                                        <div class="col-md-4">
-                                                <div class="d-md-inline float-md-right">
-                                                        <button data-btn="<%= data[i]._id %>"
-                                                            onclick="resultCalcul('<%= data[i]._id %>'); return false" type="button"
-                                                            class="btn btn-primary <% if(data[i].enabled == 0){ %> disabled <% } %>">
-                                                            <i class="fas fa-calculator mr-1"></i>Calculer
-                                                        </button>
-                                                        <div class="btn-group dropleft">
-                                                            <button data-btn="<%= data[i]._id %>" onclick="editCalcul('<%= data[i]._id %>')"
-                                                                type="button"
-                                                                class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>"><i class="fas fa-pencil-alt mr-1"></i>Modifier
-                                                            </button>
-                        
-                                                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split"
-                                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        
-                                                            </button>
-                                                            <div class="dropdown-menu <% if(data[i].enabled == 0){ %> disabled <% } %>">
-                                                                <button data-toggle-disable class="dropdown-item" onclick="toggleDisable('<%= data[i]._id %>')">
-                                                                    <% if(data[i].enabled == 0){ %>
-                                                                    <i class="fas fa-lock mr-1"></i>
-                                                                    <span>
-                                                                        Activer
-                                                                    </span>
-                                                                    <% } else{ %>
-                                                                    <i class="fas fa-lock mr-1"></i>
-                                                                    <span>
-                                                                        Désactiver <% } %>
-                                                                    </span>
-                                                                </button>
-                        
-                                                                <button data-btn="<%= data[i]._id %>"
-                                                                    onclick="deleteCalcul('<%= data[i]._id %>')"
-                                                                    class="dropdown-item bg-danger text-white <% if(data[i].enabled == 0){ %> disabled <% } %>">
-                                                                    <i class="far fa-trash-alt mr-1"></i>Supprimer
-                                                                </button>
-                        
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
+
+
+                                        <div class="col-md-12 text-center">
+                                            <div class="d-inline">
+
+                                                <button data-btn="<%= data[i]._id %>"
+                                                    onclick="resultCalcul('<%= data[i]._id %>'); return false" type="button"
+                                                    class="btn btn-primary <% if(data[i].enabled == 0){ %> disabled <% } %>">
+                                                    <i class="fas fa-calculator mr-1"></i>Calculer
+                                                </button>
+
+                                                <button data-btn="<%= data[i]._id %>" onclick="editCalcul('<%= data[i]._id %>')"
+                                                    type="button"
+                                                    class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>"><i class="fas fa-pencil-alt mr-1"></i>Modifier
+                                                </button>
+                                                
+                                                <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('<%= data[i]._id %>')">
+                                                    <% if(data[i].enabled == 0){ %>
+                                                    <i class="fas fa-lock mr-1"></i>
+                                                    <span>
+                                                        Activer
+                                                    </span>
+                                                    <% } else{ %>
+                                                    <i class="fas fa-lock mr-1"></i>
+                                                    <span>
+                                                        Désactiver <% } %>
+                                                    </span>
+                                                </button>
+
+                                                <button data-btn="<%= data[i]._id %>"
+                                                        onclick="deleteCalcul('<%= data[i]._id %>')"
+                                                    class="btn btn-danger <% if(data[i].enabled == 0){ %> disabled <% } %>">
+                                                    <i class="far fa-trash-alt mr-1"></i>Supprimer
+                                                </button>
+
+
+                                                
+
+
+                                            </div>
                                         </div>
                                     </div>
-                                
-        
-                                    
                                 </h3>
-                                <!-- <p class="card-text d-inline">
-                                </p> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 
     <% }%>
 </div>

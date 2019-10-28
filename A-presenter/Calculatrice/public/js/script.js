@@ -131,7 +131,7 @@ reloadCalculs = () => {
     resAjax = (res) => { // Le résultat est injecté dans le DOM
         const html = res.calculs.map(function (calcul) {
             calcul.enabled == true ? isDisable = '' : isDisable = 'disabled';
-            calcul.enabled == true ? textEnabl = 'Activer' : textEnabl = 'Désactiver';
+            calcul.enabled == false ? textEnabl = 'Activer' : textEnabl = 'Désactiver';
 
             calcul.result == null ? calcul.result = '' : '';
 
@@ -148,64 +148,71 @@ reloadCalculs = () => {
                                 <div class="card-body">
                                     <h3 class="card-title m-0">
                                         <div class="row">
-                                            <div class="col-md-8">
-                                                    <p class="d-inline" data-number1="${calcul.number1}" class="fs20">
-                                                            ${calcul.number1}
-                                                        </p>
-                                                        <p class="d-inline" data-operator="${calcul.operator}" class="fs20">
-                                                        ${calcul.operator}
-                                                        </p>
-                                                        <p class="d-inline" data-number2="${calcul.number2}" class="fs20">
-                                                            ${calcul.number2}
-                                                        </p>
-                                                        <p class="d-inline" class="fs20">=</p>
-                                                        <p class="d-inline" data-result="${calcul.result}" class="fs20">${calcul.result}
-                                                        </p>
+                                            <div class="col-md-12">
+                                                <p class="d-inline" data-number1="${calcul.number1}" class="fs20">
+                                                        ${calcul.number1}
+                                                </p>
+                                                <p class="d-inline" data-operator="${calcul.operator}" class="fs20">
+                                                    ${calcul.operator}
+                                                </p>
+                                                <p class="d-inline" data-number2="${calcul.number2}" class="fs20">
+                                                    ${calcul.number2}
+                                                </p>
+                                                <p class="d-inline" class="fs20">=</p>
+                                                <p class="d-inline" data-result="${calcul.result}" class="fs20">
+                                                    ${calcul.result}
+                                                </p>
+                                                <hr class="bt-042" >
                                             </div>
-                                            <div class="col-md-4">
-                                                    <div class="d-md-inline float-md-right">
-                                                            <button data-btn="${calcul._id}"
-                                                                onclick="resultCalcul('${calcul._id}'); return false" type="button"
-                                                                class="btn btn-primary ${isDisable}">
-                                                                <i class="fas fa-calculator mr-1"></i>Calculer
-                                                            </button>
-                                                            <div class="btn-group dropleft">
-                                                                <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')"
-                                                                    type="button"
-                                                                    class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>Modifier
-                                                                </button>
-                            
-                                                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split"
-                                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            
-                                                                </button>
-                                                                <div class="dropdown-menu ${isDisable}">
-                                                                    <button data-toggle-disable class="dropdown-item" onclick="toggleDisable('${calcul._id}')">
-                                                                        <i class="fas fa-lock mr-1"></i>
-                                                                        <span>
-                                                                            ${textEnabl}
-                                                                        </span>
-                                                                    </button>
-                            
-                                                                    <button data-btn="${calcul._id}"
-                                                                        onclick="deleteCalcul('${calcul._id}')"
-                                                                        class="dropdown-item bg-danger text-white ${isDisable}">
-                                                                        <i class="far fa-trash-alt mr-1"></i>Supprimer
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
+
+                                            <div class="col-md-12 text-center">
+                                                <div class="d-inline">
+
+
+                                                    <button data-btn="${calcul._id}"
+                                                        onclick="resultCalcul('${calcul._id}'); return false" type="button"
+                                                        class="btn btn-primary ${isDisable}">
+                                                        <i class="fas fa-calculator mr-1"></i>Calculer
+                                                    </button>
+
+
+                                                    <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')"
+                                                        type="button"
+                                                        class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>Modifier
+                                                    </button>
+
+
+                                                        <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('${calcul._id}')">
+                                                            <i class="fas fa-lock mr-1"></i>
+                                                            <span>
+                                                                ${textEnabl}
+                                                            </span>
+                                                        </button>
+
+
+                                                    <button data-btn="${calcul._id}"
+                                                        onclick="deleteCalcul('${calcul._id}')"
+                                                        class="btn btn-danger ${isDisable}">
+                                                        <i class="far fa-trash-alt mr-1"></i>Supprimer
+                                                    </button>
+
+
+
+
+
+                                                </div>
                                             </div>
+
+
                                         </div>
                                     </h3>
-                                    <!-- <p class="card-text d-inline">
-                                    </p> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </div>`
         }).join(''); // 'colle' les éléments entre eux. évite les bugs d'affichages... 

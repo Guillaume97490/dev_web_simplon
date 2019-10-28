@@ -18,3 +18,7 @@ div[data-enabled = "false"] .card{
   background: #adadad !important;
 }
 
+hr.bt-042{
+  border-top: 1px solid rgba(0, 0, 0, 0.42);
+}
+
