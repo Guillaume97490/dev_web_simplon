@@ -49,34 +49,43 @@
                                         <div class="col-md-12 text-center">
                                             <div class="d-inline">
 
-                                                <button data-btn="<%= data[i]._id %>"
+                                                <button title="Calculer" data-btn="<%= data[i]._id %>"
                                                     onclick="resultCalcul('<%= data[i]._id %>'); return false" type="button"
                                                     class="btn btn-primary <% if(data[i].enabled == 0){ %> disabled <% } %>">
-                                                    <i class="fas fa-calculator mr-1"></i>Calculer
+                                                    <i class="fas fa-calculator mr-1"></i>
+                                                    <span class="d-none d-md-inline">
+                                                        Calculer
+                                                    </span>
                                                 </button>
 
-                                                <button data-btn="<%= data[i]._id %>" onclick="editCalcul('<%= data[i]._id %>')"
+                                                <button title="Modifier" data-btn="<%= data[i]._id %>" onclick="editCalcul('<%= data[i]._id %>')"
                                                     type="button"
-                                                    class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>"><i class="fas fa-pencil-alt mr-1"></i>Modifier
+                                                    class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>"><i class="fas fa-pencil-alt mr-1"></i>
+                                                    <span class="d-none d-md-inline">
+                                                        Modifier
+                                                    </span>
                                                 </button>
                                                 
-                                                <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('<%= data[i]._id %>')">
+                                                <button title="Activer / Désactiver" data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('<%= data[i]._id %>')">
                                                     <% if(data[i].enabled == 0){ %>
                                                     <i class="fas fa-lock mr-1"></i>
-                                                    <span>
+                                                    <span class="d-none d-md-inline">
                                                         Activer
                                                     </span>
                                                     <% } else{ %>
                                                     <i class="fas fa-lock mr-1"></i>
-                                                    <span>
+                                                    <span class="d-none d-md-inline">
                                                         Désactiver <% } %>
                                                     </span>
                                                 </button>
 
-                                                <button data-btn="<%= data[i]._id %>"
+                                                <button title="Supprimer" data-btn="<%= data[i]._id %>"
                                                         onclick="deleteCalcul('<%= data[i]._id %>')"
                                                     class="btn btn-danger <% if(data[i].enabled == 0){ %> disabled <% } %>">
-                                                    <i class="far fa-trash-alt mr-1"></i>Supprimer
+                                                    <i class="far fa-trash-alt mr-1"></i>
+                                                    <span class="d-none d-md-inline">
+                                                        Supprimer
+                                                    </span>
                                                 </button>
 
 

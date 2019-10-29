@@ -173,19 +173,25 @@ reloadCalculs = () => {
                                                     <button data-btn="${calcul._id}"
                                                         onclick="resultCalcul('${calcul._id}'); return false" type="button"
                                                         class="btn btn-primary ${isDisable}">
-                                                        <i class="fas fa-calculator mr-1"></i>Calculer
+                                                        <i class="fas fa-calculator mr-1"></i>
+                                                        <span class="d-none d-md-inline">
+                                                            Calculer
+                                                        </span>
                                                     </button>
 
 
                                                     <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')"
                                                         type="button"
-                                                        class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>Modifier
+                                                        class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>
+                                                        <span class="d-none d-md-inline">
+                                                            Modifier
+                                                        </span>
                                                     </button>
 
 
                                                         <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('${calcul._id}')">
                                                             <i class="fas fa-lock mr-1"></i>
-                                                            <span>
+                                                            <span class="d-none d-md-inline">
                                                                 ${textEnabl}
                                                             </span>
                                                         </button>
@@ -194,7 +200,10 @@ reloadCalculs = () => {
                                                     <button data-btn="${calcul._id}"
                                                         onclick="deleteCalcul('${calcul._id}')"
                                                         class="btn btn-danger ${isDisable}">
-                                                        <i class="far fa-trash-alt mr-1"></i>Supprimer
+                                                        <i class="far fa-trash-alt mr-1"></i>
+                                                        <span class="d-none d-md-inline">
+                                                            Supprimer
+                                                        </span>
                                                     </button>
 
 
