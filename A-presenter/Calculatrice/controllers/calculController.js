@@ -216,9 +216,11 @@ controller.update = (req, res) => {
                 },
                 function (err, item) {
                     if (err) throw err;
-                    res.redirect("/calcul");
+                    // res.redirect("/calcul");
+
                     // console.log(item);
                 });
+                res.end();
         }
     })
 }

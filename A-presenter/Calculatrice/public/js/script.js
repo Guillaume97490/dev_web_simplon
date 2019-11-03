@@ -1,7 +1,8 @@
 addOrUpdate = () => {
+    $(".spinner-border").hide()
     const num1 = document.querySelector('#number1').value;
     const num2 = document.querySelector('#number2').value;
-    const operator = document.querySelector('#operator').value;
+    let operator = document.querySelector('#operator').value;
     const postBtn = document.querySelector('form button[type="submit"]');
     const calculId = document.querySelector('#hidden-id').value;
     const id = calculId;
@@ -12,23 +13,47 @@ addOrUpdate = () => {
         return
     }
 
+    
+
     // Bascule entre ajouté un calcule et une édition d'après le texte du bouton 
-    postBtn.innerText == 'Modifier' ? actionForm = 'update' : actionForm = 'save'
+    postBtn.innerText == 'Modifier' ? actionForm = 'update' : actionForm = 'save';
     params = {
         number1: num1,
         operator: operator,
         number2: num2,
         id: calculId
-    }
-
-    postCalc();
-    async function postCalc() {
-        await reqAjax(actionForm, id, params);
+    };
+    // $('form button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+    
+    $(".spinner-border").show()
+    $.post({
+        url: actionForm == 'save' ? `calcul/save` : `calcul/update/${id}`,
+        data: params,
+        beforeSend: function () { $(".spinner-border").show(); },
+    }).done(()=>{
         reloadCalculs();
+        $(".spinner-border").hide();
+    })
+        
+    
+    
+    if (postBtn.innerText == 'Modifier'){
+        document.querySelector(`[data-id='${id}'] [data-number1]`).innerText = num1;
+        document.querySelector(`[data-id='${id}'] [data-number2]`).innerText = num2;
+        switch (operator){
+            case '0': operator = '+'; break
+            case '1': operator = '-'; break
+            case '2': operator = '*'; break
+            case '3': operator = '/'; break
+        };
+        // console.log(operator);
+        document.querySelector(`[data-id='${id}'] [data-operator]`).innerText = operator;
+        document.querySelector(`[data-id='${id}'] [data-result]`).innerText = '';
     }
 
-    document.querySelector("#calcul-form").reset(); // Remet tous les champs du formulaire à l'état initiale
     postBtn.innerText = 'Ajouter';
+    
+    document.querySelector("#calcul-form").reset(); // Remet tous les champs du formulaire à l'état initiale
 };
 
 editCalcul = (id) => {
@@ -36,26 +61,18 @@ editCalcul = (id) => {
         return;
     }
 
-    const num1 = Number(document.querySelector(`[data-id='${id}'] [data-number1]`).dataset.number1);
-    const num2 = Number(document.querySelector(`[data-id='${id}'] [data-number2]`).dataset.number2);
-    const op = document.querySelector(`[data-id='${id}'] [data-operator]`).dataset.operator;
+    const num1 = Number(document.querySelector(`[data-id='${id}'] [data-number1]`).innerText);
+    const num2 = Number(document.querySelector(`[data-id='${id}'] [data-number2]`).innerText);
+    const op = document.querySelector(`[data-id='${id}'] [data-operator]`).innerText.trim();
 
+    console.log(op);
     if ((op && num1 && num2) || num1 == 0 || num2 == 0) {
         switch (op) {
-            case '+':
-                document.querySelector('#operator').value = '0'
-                break
-            case '-':
-                document.querySelector('#operator').value = '1'
-                break
-            case '*':
-                document.querySelector('#operator').value = '2'
-                break
-            case '/':
-                document.querySelector('#operator').value = '3'
-                break
-            default:
-                console.log('error');
+            case '+': document.querySelector('#operator').value = '0';break
+            case '-': document.querySelector('#operator').value = '1';break
+            case '*': document.querySelector('#operator').value = '2';break
+            case '/': document.querySelector('#operator').value = '3';break
+            default:console.log('error');
                 return
         }
 
@@ -228,6 +245,7 @@ reloadCalculs = () => {
 
         const element = document.querySelector('#container-list-calcul');
         element.innerHTML = html; // met les éléments dans une div
+        
     }
 }
 // var test =''
