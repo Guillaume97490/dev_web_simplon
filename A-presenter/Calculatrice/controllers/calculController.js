@@ -12,7 +12,7 @@ controller.index = (req, res) => {
             data: items, // object of the all items
             title: 'Accueil'
         });
-    });
+    }).sort({ _id: -1 });
 };
 
 controller.getAll = (req, res) => {
@@ -22,7 +22,7 @@ controller.getAll = (req, res) => {
         res.json({
             'calculs': items
         }); // renvois un json des calculs... 
-    });
+    }).sort({ _id: -1 });
 };
 
 
@@ -113,7 +113,14 @@ controller.save = (req, res) => {
         newCalcul.save(function (err) { // sauvegarde du calcul dans la base de données
             if (err) throw err;
         });
-        res.end();
+        res.send({
+            _id:newCalcul._id,
+            number1: number1,
+            number2: number2,
+            operator: operator,
+            enabled: true,
+            result: ''
+        });
         
     }
 

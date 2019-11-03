@@ -1,4 +1,4 @@
-<form id="calcul-form" class="mb-5" action="/calcul/save" method="post">
+<form id="calcul-form" class="mb-5 mt-2" action="/calcul/save" method="post">
 
     <div class="container">
 
@@ -8,8 +8,7 @@
                 <div class="row">
 
                     <div class="col-md-4">
-                        <label for="number1">Nombre 1</label>
-                        <input id="number1" required class="form-control" type="number" name="number1">
+                        <input title="Choisissez votre nombre 1" placeholder="Nombre 1" id="number1" aria-label="Nombre1" required class="form-control" type="number" name="number1">
                     </div>
 
 
@@ -18,8 +17,7 @@
 
                     <div class="col-md-4">
 
-                        <label for="operator">Opérateur</label>
-                        <select id="operator" required class="form-control" name="operator">
+                        <select title="Choisissez votre opérateur" placeholder="Opérateur" id="operator" aria-label="Opérateur" required class="form-control" name="operator">
                             <option value="0">+</option>
                             <option value="1">-</option>
                             <option value="2">*</option>
@@ -30,18 +28,21 @@
 
 
                     <div class="col-md-4">
-
-                        <label for="number2">Nombre 2</label>
-                        <input id="number2" required class="form-control" type="number" name="number2">
-
+                        <input title="Choisissez votre nombre 2" placeholder="Nombre 2" id="number2" aria-label="Nombre2" required class="form-control" type="number" name="number2">
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="col-12 text-center mt-2">
-            <button onclick="addOrUpdate();return false" data-btn-submit type="submit" class="btn btn-success">Ajouter</button>
+        <div class="col-12 d-flex justify-content-center mt-2">
+            <button onclick="addOrUpdate();return false" data-btn-submit type="submit" class="btn btn-success d-flex align-items-center">
+                    <span class="spinner-border spinner-border-sm text-light" style="display: none;" role="status"></span>
+                    <i class="fas fa-plus"></i>
+                    <span class="text">
+                        Ajouter
+                    </span>
+            </button>
         </div>
     </div>
     <input id="hidden-id" type="hidden" value="" type="hidden" name="id">

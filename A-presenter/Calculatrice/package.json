@@ -4,7 +4,8 @@
   "description": "Calculatrice v2",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "kill": "lsof -ti :3000 | xargs kill"
   },
   "author": "Guillaume",
   "license": "ISC",

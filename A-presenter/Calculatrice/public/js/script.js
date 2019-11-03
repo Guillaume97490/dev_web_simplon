@@ -1,11 +1,9 @@
 addOrUpdate = () => {
-    $(".spinner-border").hide()
-    const num1 = document.querySelector('#number1').value;
-    const num2 = document.querySelector('#number2').value;
-    let operator = document.querySelector('#operator').value;
-    const postBtn = document.querySelector('form button[type="submit"]');
-    const calculId = document.querySelector('#hidden-id').value;
-    const id = calculId;
+    const num1 = $('#number1').val();
+    const num2 = $('#number2').val();
+    let operator = $('#operator').val();
+    const postBtn = $('form button[type="submit"] .text');
+    const id = $('#hidden-id').val();
     let actionForm = '';
     let params = '';
 
@@ -13,45 +11,57 @@ addOrUpdate = () => {
         return
     }
 
-    
-
     // Bascule entre ajouté un calcule et une édition d'après le texte du bouton 
-    postBtn.innerText == 'Modifier' ? actionForm = 'update' : actionForm = 'save';
+    postBtn.text() == 'Modifier' ? actionForm = 'update' : actionForm = 'save';
     params = {
         number1: num1,
         operator: operator,
         number2: num2,
-        id: calculId
+        id: id
     };
-    // $('form button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     
-    $(".spinner-border").show()
+    if (actionForm == 'save'){
+        $(".text").html('Ajout...');
+        $(".fa-plus").hide();
+        $(".spinner-border").show();
+    }
+
     $.post({
         url: actionForm == 'save' ? `calcul/save` : `calcul/update/${id}`,
         data: params,
-        beforeSend: function () { $(".spinner-border").show(); },
-    }).done(()=>{
-        reloadCalculs();
-        $(".spinner-border").hide();
+        beforeSend: () => $(".spinner-border").show(),
+        complete: (calcul)=> {
+            // reloadCalculs();
+            $(".spinner-border").hide();
+            $(".text").html('Ajouter');
+            $(".fa-plus").show();
+            if (actionForm == 'save'){
+                calcul = JSON.parse(calcul.responseText)
+                const html = (function (calculs) {
+                    calcul.enabled == true ? isDisable = '' : isDisable = 'disabled';
+                    calcul.enabled == false ? textEnabl = 'Activer' : textEnabl = 'Désactiver';
+                    calcul.result == null ? calcul.result = '' : '';
+                    return cardCalcul(calcul)
+                });
+                const element = $('#container-list-calcul');
+                $(element).prepend(html);
+                $('#container-list-calcul > div').first().hide().show('slow');
+            };
+        },
     })
         
-    
-    
-    if (postBtn.innerText == 'Modifier'){
-        document.querySelector(`[data-id='${id}'] [data-number1]`).innerText = num1;
-        document.querySelector(`[data-id='${id}'] [data-number2]`).innerText = num2;
+    if (actionForm == 'update'){
         switch (operator){
             case '0': operator = '+'; break
             case '1': operator = '-'; break
             case '2': operator = '*'; break
             case '3': operator = '/'; break
         };
-        // console.log(operator);
-        document.querySelector(`[data-id='${id}'] [data-operator]`).innerText = operator;
-        document.querySelector(`[data-id='${id}'] [data-result]`).innerText = '';
+        $(`[data-id='${id}'] [data-number1]`).text(num1).hide().show('slow');
+        $(`[data-id='${id}'] [data-number2]`).text(num2).hide().show('slow');
+        $(`[data-id='${id}'] [data-operator]`).text(operator).hide().show('slow');
+        $(`[data-id='${id}'] [data-result]`).text('').hide().show('slow');
     }
-
-    postBtn.innerText = 'Ajouter';
     
     document.querySelector("#calcul-form").reset(); // Remet tous les champs du formulaire à l'état initiale
 };
@@ -61,26 +71,26 @@ editCalcul = (id) => {
         return;
     }
 
-    const num1 = Number(document.querySelector(`[data-id='${id}'] [data-number1]`).innerText);
-    const num2 = Number(document.querySelector(`[data-id='${id}'] [data-number2]`).innerText);
-    const op = document.querySelector(`[data-id='${id}'] [data-operator]`).innerText.trim();
+    const num1 = Number($(`[data-id='${id}'] [data-number1]`).text());
+    const num2 = Number($(`[data-id='${id}'] [data-number2]`).text());
+    const op = $(`[data-id='${id}'] [data-operator]`).text().trim();
 
     console.log(op);
     if ((op && num1 && num2) || num1 == 0 || num2 == 0) {
         switch (op) {
-            case '+': document.querySelector('#operator').value = '0';break
-            case '-': document.querySelector('#operator').value = '1';break
-            case '*': document.querySelector('#operator').value = '2';break
-            case '/': document.querySelector('#operator').value = '3';break
+            case '+': $('#operator').val('0');break
+            case '-': $('#operator').val('1');break
+            case '*': $('#operator').val('2');break
+            case '/': $('#operator').val('3');break
             default:console.log('error');
                 return
         }
 
-        document.querySelector('#number1').value = num1;
-        document.querySelector('#number2').value = num2;
-        document.getElementById('calcul-form').action = '/calcul/update/' + id;
-        document.querySelector('#hidden-id').value = id;
-        document.querySelector('form button[type="submit"]').innerText = 'Modifier';
+        $('#number1').val(num1);
+        $('#number2').val(num2);
+        $('calcul-form').attr('action' , '/calcul/update/' + id);
+        $('#hidden-id').val(id);
+        $('form button[type="submit"] .text').text('Modifier');
         window.location.replace("#"); // Permet de revenir en haut de la page pour afficher le formulaire de modification
     }
 }
@@ -99,7 +109,7 @@ resultCalcul = (id) => {
     // Met à jour le DOM avec la réponse retournée pas le serveur 
     resAjax = (res) => {
         const resultat = res.resultat;
-        document.querySelector(`[data-id='${id}'] [data-result]`).innerHTML = resultat;
+        $(`[data-id='${id}'] [data-result]`).hide().html(resultat).show('slow');
     };
 }
 
@@ -108,8 +118,9 @@ deleteCalcul = (id) => {
         return;
     }
     reqAjax(action = 'delete', id);
-    const el = document.querySelector(`[data-id='${id}']`);
-    el.remove();
+    const el = $(`[data-id='${id}']`);
+    $(el).hide('slow', ()=> $(this).remove());
+
 }
 
 toggleDisable = (id) => {
@@ -152,99 +163,14 @@ reloadCalculs = () => {
 
             calcul.result == null ? calcul.result = '' : '';
 
-            return `
-            <div class="row justify-content-center">
-        
-            <div class="col-md-6">
-                <div class="mb-2" data-id="${calcul._id}" data-enabled="${calcul.enabled}">
-            
-            
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card border-0 rounded-50">
-                                <div class="card-body">
-                                    <h3 class="card-title m-0">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p class="d-inline" data-number1="${calcul.number1}" class="fs20">
-                                                        ${calcul.number1}
-                                                </p>
-                                                <p class="d-inline" data-operator="${calcul.operator}" class="fs20">
-                                                    ${calcul.operator}
-                                                </p>
-                                                <p class="d-inline" data-number2="${calcul.number2}" class="fs20">
-                                                    ${calcul.number2}
-                                                </p>
-                                                <p class="d-inline" class="fs20">=</p>
-                                                <p class="d-inline" data-result="${calcul.result}" class="fs20">
-                                                    ${calcul.result}
-                                                </p>
-                                                <hr class="bt-042" >
-                                            </div>
-
-
-                                            <div class="col-md-12 text-center">
-                                                <div class="d-inline">
-
-
-                                                    <button data-btn="${calcul._id}"
-                                                        onclick="resultCalcul('${calcul._id}'); return false" type="button"
-                                                        class="btn btn-primary ${isDisable}">
-                                                        <i class="fas fa-calculator mr-1"></i>
-                                                        <span class="d-none d-md-inline">
-                                                            Calculer
-                                                        </span>
-                                                    </button>
-
-
-                                                    <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')"
-                                                        type="button"
-                                                        class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>
-                                                        <span class="d-none d-md-inline">
-                                                            Modifier
-                                                        </span>
-                                                    </button>
-
-
-                                                        <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('${calcul._id}')">
-                                                            <i class="fas fa-lock mr-1"></i>
-                                                            <span class="d-none d-md-inline">
-                                                                ${textEnabl}
-                                                            </span>
-                                                        </button>
-
-
-                                                    <button data-btn="${calcul._id}"
-                                                        onclick="deleteCalcul('${calcul._id}')"
-                                                        class="btn btn-danger ${isDisable}">
-                                                        <i class="far fa-trash-alt mr-1"></i>
-                                                        <span class="d-none d-md-inline">
-                                                            Supprimer
-                                                        </span>
-                                                    </button>
-
-
-
-
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>`
+            return cardCalcul(calcul)
         }).join(''); // 'colle' les éléments entre eux. évite les bugs d'affichages... 
 
         const element = document.querySelector('#container-list-calcul');
-        element.innerHTML = html; // met les éléments dans une div
+        // element.innerHTML = html; // met les éléments dans une div
+        // $(element).html(html).fadeIn();
+
+        $(element).html(html);
         
     }
 }
@@ -292,20 +218,6 @@ function reqAjax(action, id = null, params = null) {
                 params: null
             }
             break
-        case 'save':
-            dataReq = {
-                path: `/calcul/${action}`,
-                method: 'POST',
-                params: JSON.stringify(params) // JSON.stringify() transforme un objet json en chaîne de caractère
-            }
-            break
-        case 'update':
-            dataReq = {
-                path: `/calcul/${action}/${id}`,
-                method: 'POST',
-                params: JSON.stringify(params)
-            }
-            break
         default:
             return
     }
@@ -314,4 +226,96 @@ function reqAjax(action, id = null, params = null) {
         req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     }
     req.send(dataReq.params);
+}
+
+cardCalcul = (calcul) =>{
+    return `
+    <div class="row justify-content-center">
+    
+    <div class="col-md-6">
+        <div class="mb-2" data-id="${calcul._id}" data-enabled="${calcul.enabled}">
+    
+    
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 rounded-50">
+                        <div class="card-body">
+                            <h3 class="card-title m-0">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="d-inline" data-number1="${calcul.number1}" class="fs20">
+                                                ${calcul.number1}
+                                        </p>
+                                        <p class="d-inline" data-operator="${calcul.operator}" class="fs20">
+                                            ${calcul.operator}
+                                        </p>
+                                        <p class="d-inline" data-number2="${calcul.number2}" class="fs20">
+                                            ${calcul.number2}
+                                        </p>
+                                        <p class="d-inline" class="fs20">=</p>
+                                        <p class="d-inline" data-result="${calcul.result}" class="fs20">
+                                            ${calcul.result}
+                                        </p>
+                                        <hr class="bt-042" >
+                                    </div>
+    
+    
+                                    <div class="col-md-12 text-center">
+                                        <div class="d-inline">
+    
+    
+                                            <button data-btn="${calcul._id}"
+                                                onclick="resultCalcul('${calcul._id}'); return false" type="button"
+                                                class="btn btn-primary ${isDisable}">
+                                                <i class="fas fa-calculator mr-1"></i>
+                                                <span class="d-none d-md-inline">
+                                                    Calculer
+                                                </span>
+                                            </button>
+    
+    
+                                            <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')"
+                                                type="button"
+                                                class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>
+                                                <span class="d-none d-md-inline">
+                                                    Modifier
+                                                </span>
+                                            </button>
+    
+    
+                                                <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('${calcul._id}')">
+                                                    <i class="fas fa-lock mr-1"></i>
+                                                    <span class="d-none d-md-inline">
+                                                        ${textEnabl}
+                                                    </span>
+                                                </button>
+    
+    
+                                            <button data-btn="${calcul._id}"
+                                                onclick="deleteCalcul('${calcul._id}')"
+                                                class="btn btn-danger ${isDisable}">
+                                                <i class="far fa-trash-alt mr-1"></i>
+                                                <span class="d-none d-md-inline">
+                                                    Supprimer
+                                                </span>
+                                            </button>
+    
+    
+    
+    
+    
+                                        </div>
+                                    </div>
+    
+    
+                                </div>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    </div>`
 }
