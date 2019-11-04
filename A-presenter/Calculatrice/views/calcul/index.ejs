@@ -49,41 +49,41 @@
                                         <div class="col-md-12 text-center">
                                             <div class="d-inline">
 
-                                                <button title="Calculer" data-btn="<%= data[i]._id %>"
+                                                <button title="Calculer" aria-label="Calculer" data-btn="<%= data[i]._id %>"
                                                     onclick="resultCalcul('<%= data[i]._id %>'); return false" type="button"
                                                     class="btn btn-primary <% if(data[i].enabled == 0){ %> disabled <% } %>">
                                                     <i class="fas fa-calculator mr-1"></i>
-                                                    <span class="d-none d-md-inline">
+                                                    <span class="d-none fs12 d-lg-inline">
                                                         Calculer
                                                     </span>
                                                 </button>
 
-                                                <button title="Modifier" data-btn="<%= data[i]._id %>" onclick="editCalcul('<%= data[i]._id %>')"
+                                                <button title="Modifier" aria-label="Modifier" data-btn="<%= data[i]._id %>" onclick="editCalcul('<%= data[i]._id %>')"
                                                     type="button"
                                                     class="btn btn-warning  <% if(data[i].enabled == 0){ %> disabled <% } %>"><i class="fas fa-pencil-alt mr-1"></i>
-                                                    <span class="d-none d-md-inline">
+                                                    <span class="d-none fs12 d-lg-inline">
                                                         Modifier
                                                     </span>
                                                 </button>
                                                 
-                                                <button title="Activer / Désactiver" data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('<%= data[i]._id %>')">
+                                                <button title="Activer / Désactiver" aria-label="Activer / Désactiver" data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('<%= data[i]._id %>')">
                                                     <% if(data[i].enabled == 0){ %>
                                                     <i class="fas fa-lock mr-1"></i>
-                                                    <span class="d-none d-md-inline">
+                                                    <span class="d-none fs12 d-lg-inline">
                                                         Activer
                                                     </span>
                                                     <% } else{ %>
                                                     <i class="fas fa-lock mr-1"></i>
-                                                    <span class="d-none d-md-inline">
+                                                    <span class="d-none fs12 d-lg-inline">
                                                         Désactiver <% } %>
                                                     </span>
                                                 </button>
 
-                                                <button title="Supprimer" data-btn="<%= data[i]._id %>"
+                                                <button title="Supprimer" aria-label="Supprimer" data-btn="<%= data[i]._id %>"
                                                         onclick="deleteCalcul('<%= data[i]._id %>')"
                                                     class="btn btn-danger <% if(data[i].enabled == 0){ %> disabled <% } %>">
                                                     <i class="far fa-trash-alt mr-1"></i>
-                                                    <span class="d-none d-md-inline">
+                                                    <span class="d-none fs12 d-lg-inline">
                                                         Supprimer
                                                     </span>
                                                 </button>

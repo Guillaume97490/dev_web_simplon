@@ -22,9 +22,9 @@ addOrUpdate = () => {
     
     if (actionForm == 'save'){
         $(".text").html('Ajout...');
-        $(".fa-plus").hide();
         $(".spinner-border").show();
     }
+    $(".fa-plus").hide();
 
     $.post({
         url: actionForm == 'save' ? `calcul/save` : `calcul/update/${id}`,
@@ -264,38 +264,38 @@ cardCalcul = (calcul) =>{
                                         <div class="d-inline">
     
     
-                                            <button data-btn="${calcul._id}"
+                                            <button data-btn="${calcul._id}" aria-label="Calculer"
                                                 onclick="resultCalcul('${calcul._id}'); return false" type="button"
                                                 class="btn btn-primary ${isDisable}">
                                                 <i class="fas fa-calculator mr-1"></i>
-                                                <span class="d-none d-md-inline">
+                                                <span class="d-none fs12 d-lg-inline">
                                                     Calculer
                                                 </span>
                                             </button>
     
     
-                                            <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')"
+                                            <button data-btn="${calcul._id}" onclick="editCalcul('${calcul._id}')" aria-label="Modifier"
                                                 type="button"
                                                 class="btn btn-warning ${isDisable}"><i class="fas fa-pencil-alt mr-1"></i>
-                                                <span class="d-none d-md-inline">
+                                                <span class="d-none fs12 d-lg-inline">
                                                     Modifier
                                                 </span>
                                             </button>
     
     
-                                                <button data-toggle-disable class="btn btn-secondary" onclick="toggleDisable('${calcul._id}')">
+                                                <button data-toggle-disable class="btn btn-secondary" aria-label="Activer / Désactiver" onclick="toggleDisable('${calcul._id}')">
                                                     <i class="fas fa-lock mr-1"></i>
-                                                    <span class="d-none d-md-inline">
+                                                    <span class="d-none fs12 d-lg-inline">
                                                         ${textEnabl}
                                                     </span>
                                                 </button>
     
     
-                                            <button data-btn="${calcul._id}"
+                                            <button data-btn="${calcul._id}" aria-label="Supprimer"
                                                 onclick="deleteCalcul('${calcul._id}')"
                                                 class="btn btn-danger ${isDisable}">
                                                 <i class="far fa-trash-alt mr-1"></i>
-                                                <span class="d-none d-md-inline">
+                                                <span class="d-none fs12 d-lg-inline">
                                                     Supprimer
                                                 </span>
                                             </button>

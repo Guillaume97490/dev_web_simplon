@@ -24,5 +24,8 @@ hr.bt-042{
 .btn.disabled{
   cursor: not-allowed;
 }
+.fs12{
+  font-size: 12px;
+}
 
 
