@@ -8,5 +8,5 @@
 |Amazon Pay|Pour les commerçants, env. 1,9 % et 35 centimes par transaction|Carte de crédit, prélèvement bancaire|Pas de compte à créer chez le commerçant, aucune transmission des données bancaires à des tiers|Ne peut être utilisé qu’avec un compte Amazon, réserves sur la protection des consommateurs
 |
 |Apple Pay|Frais pour l’utilisateur non connus, pour les boutiques env. 0,15 % par transaction|Carte de crédit|Haut niveau de sécurité|Uniquement utilisable avec les produits Apple|
-|Google Pay|Aucun|Carte de crédit|Haut niveau de sécurité, peut être utilisé comme une application séparée indépendante de Google|   |
+|Google Pay|Aucun|Carte de crédit|Haut niveau de sécurité, peut être utilisé comme une application séparée indépendante de Google|
 |Skrill|Aucun|Carte de crédit, compte courant|Maîtrise de ses dépenses grâce au système de carte prépayée, aucune transmission des coordonnées bancaires aux sites marchands|Service peu utilisé, annulation impossible, frais supplémentaires pour les services complémentaires|
